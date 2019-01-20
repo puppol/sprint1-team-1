@@ -51,4 +51,32 @@ public class BoardTest {
         assertTrue(destroyer.getLength() == 3);
         assertTrue(battleship.getLength() == 4);
     }
+
+    @Test
+    public void shipOccupiesMultipleSpaces() {
+        Board board = new Board();
+        Ship minesweeper = new Ship("MINESWEEPER");
+        Ship destroyer = new Ship("DESTROYER");
+        Ship battleship = new Ship("BATTLESHIP");
+
+        board.placeShip(minesweeper, 1, 'A', true);
+        board.placeShip(destroyer, 1, 'B', true);
+        board.placeShip(battleship, 1, 'C', true);
+
+        assertTrue(board.getShips().get(0).getOccupiedSquares().get(1).isEqual(new Square(2, 'A')));
+        assertTrue(board.getShips().get(1).getOccupiedSquares().get(2).isEqual(new Square(3, 'B')));
+        assertTrue(board.getShips().get(2).getOccupiedSquares().get(3).isEqual(new Square(4, 'C')));
+    }
+
+    @Test
+    public void shipDirection() {
+        Board board = new Board();
+        Ship minesweeper = new Ship("MINESWEEPER");
+
+        board.placeShip(minesweeper, 1, 'A', true);
+        board.placeShip(minesweeper, 2, 'B', false);
+
+        assertTrue(board.getShips().get(0).getOccupiedSquares().get(1).isEqual(new Square(2, 'A')));
+        assertTrue(board.getShips().get(1).getOccupiedSquares().get(1).isEqual(new Square(2, 'C')));
+    }
 }

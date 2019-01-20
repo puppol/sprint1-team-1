@@ -19,7 +19,9 @@ public class Board {
 	 */
 	public boolean placeShip(Ship ship, int x, char y, boolean isVertical) {
 		List<Square> occupiedSquares = new ArrayList<>();
-		occupiedSquares.add(new Square(x, y));
+		for (int i = 0; i < ship.getLength(); i++) {
+			occupiedSquares.add(new Square(x + i, y));
+		}
 		ship.setLocation(occupiedSquares);
 		placedShips.add(ship);
 		return true;
