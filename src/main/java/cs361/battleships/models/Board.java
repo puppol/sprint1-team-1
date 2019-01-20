@@ -5,19 +5,21 @@ import java.util.List;
 
 public class Board {
 
+	private List<Ship> placedShips;
+
 	/*
 	DO NOT change the signature of this method. It is used by the grading scripts.
 	 */
 	public Board() {
-		// TODO Implement
+		placedShips = new ArrayList<>();
 	}
 
 	/*
 	DO NOT change the signature of this method. It is used by the grading scripts.
 	 */
 	public boolean placeShip(Ship ship, int x, char y, boolean isVertical) {
-		// TODO Implement
-		return false;
+		placedShips.add(ship);
+		return true;
 	}
 
 	/*
@@ -30,7 +32,7 @@ public class Board {
 
 	public List<Ship> getShips() {
 		//TODO implement
-		return null;
+		return placedShips;
 	}
 
 	public void setShips(List<Ship> ships) {
