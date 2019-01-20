@@ -41,4 +41,14 @@ public class BoardTest {
         board.placeShip(placedShip, occupiedSquare.getRow(), occupiedSquare.getColumn(), true);
         assertTrue(occupiedSquare.isEqual(board.getShips().get(0).getOccupiedSquares().get(0)));
     }
+
+    @Test
+    public void shipHasLength() {
+        Ship minesweeper = new Ship("MINESWEEPER");
+        Ship destroyer = new Ship("DESTROYER");
+        Ship battleship = new Ship("BATTLESHIP");
+        assertTrue(minesweeper.getLength() == 2);
+        assertTrue(destroyer.getLength() == 3);
+        assertTrue(battleship.getLength() == 4);
+    }
 }
