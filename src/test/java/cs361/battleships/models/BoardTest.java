@@ -32,4 +32,13 @@ public class BoardTest {
         assertTrue(square2.isEqual(square1));
         assertFalse(square1.isEqual(square3));
     }
+
+    @Test
+    public void shipOccupiesSpace() {
+        Board board = new Board();
+        Square occupiedSquare = new Square(1, 'A');
+        Ship placedShip = new Ship("MINESWEEPER");
+        board.placeShip(placedShip, occupiedSquare.getRow(), occupiedSquare.getColumn(), true);
+        assertTrue(occupiedSquare.isEqual(board.getShips().get(0).getOccupiedSquares().get(0)));
+    }
 }
