@@ -72,11 +72,12 @@ public class BoardTest {
     public void shipDirection() {
         Board board = new Board();
         Ship minesweeper = new Ship("MINESWEEPER");
+        Ship destroyer = new Ship("DESTROYER");
 
         board.placeShip(minesweeper, 1, 'A', true);
-        board.placeShip(minesweeper, 2, 'B', false);
+        board.placeShip(destroyer, 2, 'B', false);
 
         assertTrue(board.getShips().get(0).getOccupiedSquares().get(1).isEqual(new Square(2, 'A')));
-        assertTrue(board.getShips().get(1).getOccupiedSquares().get(1).isEqual(new Square(2, 'C')));
+        assertTrue(board.getShips().get(1).getOccupiedSquares().get(2).isEqual(new Square(2, 'D')));
     }
 }
