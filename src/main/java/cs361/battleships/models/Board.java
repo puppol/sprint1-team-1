@@ -20,12 +20,18 @@ public class Board {
 	public boolean placeShip(Ship ship, int x, char y, boolean isVertical) {
 		List<Square> occupiedSquares = new ArrayList<>();
 		if (isVertical) {
+			if (x + ship.getLength() > 10) {
+				return false;
+			}
 			for (int i = 0; i < ship.getLength(); i++) {
 				occupiedSquares.add(new Square(x + i, y));
 			}
 		} else {
+			if (y + ship.getLength() - 'A' > 10) {
+				return false;
+			}
 			for (int i = 0; i < ship.getLength(); i++) {
-				occupiedSquares.add(new Square(x, (char) ((int)y + i)));
+				occupiedSquares.add(new Square(x, (char)(y + i)));
 			}
 		}
 		ship.setLocation(occupiedSquares);

@@ -8,12 +8,13 @@ import static org.junit.Assert.*;
 
 public class BoardTest {
 
-/*    @Test
+    @Test
     public void testInvalidPlacement() {
         Board board = new Board();
         assertFalse(board.placeShip(new Ship("MINESWEEPER"), 11, 'C', true));
+        assertFalse(board.placeShip(new Ship("MINESWEEPER"), 1, 'J', false));
     }
-*/
+
 
     @Test
     public void shipInBoard() {
@@ -80,4 +81,7 @@ public class BoardTest {
         assertTrue(board.getShips().get(0).getOccupiedSquares().get(1).isEqual(new Square(2, 'A')));
         assertTrue(board.getShips().get(1).getOccupiedSquares().get(2).isEqual(new Square(2, 'D')));
     }
+
+    /*@Test
+    public void*/
 }
