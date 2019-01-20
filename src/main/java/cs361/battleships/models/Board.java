@@ -34,6 +34,15 @@ public class Board {
 				occupiedSquares.add(new Square(x, (char)(y + i)));
 			}
 		}
+		for (Square square : occupiedSquares) {
+			for (Ship currentShip : placedShips) {
+				for (Square filledSquare : currentShip.getOccupiedSquares()) {
+					if (square.isEqual(filledSquare)) {
+						return false;
+					}
+				}
+			}
+		}
 		ship.setLocation(occupiedSquares);
 		placedShips.add(ship);
 		return true;
