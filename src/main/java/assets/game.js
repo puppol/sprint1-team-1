@@ -63,7 +63,6 @@ function registerCellListener(f) {
 }
 
 function cellClick() {
-    console.log("cellClick");
     let row = this.parentNode.rowIndex + 1;
     let col = String.fromCharCode(this.cellIndex + 65);
     if (isSetup) {

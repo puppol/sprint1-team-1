@@ -13,6 +13,7 @@ public class Game {
     @JsonProperty private Board playersBoard = new Board();
     @JsonProperty private Board opponentsBoard = new Board();
     private Random rand = new Random();
+
     /*
 	DO NOT change the signature of this method. It is used by the grading scripts.
 	 */
@@ -51,8 +52,9 @@ public class Game {
     }
 
     private char randCol() {
-        // TODO implement
-        return 'X';
+        String alphabet = "ABCDEFGHIJ";
+        char col = alphabet.charAt(rand.nextInt(alphabet.length()));
+        return col;
     }
 
     private int randRow() {
@@ -62,7 +64,6 @@ public class Game {
     }
 
     private boolean randVertical() {
-        // TODO implement
-        return false;
+        return rand.nextBoolean();
     }
 }
