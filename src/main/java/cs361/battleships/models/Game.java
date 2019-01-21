@@ -58,8 +58,9 @@ public class Game {
     }
 
     private int randRow() {
-        // TODO implement
-        return 0;
+        // creates a random int off of the random rand from the top of Game
+        int rowInt = rand.nextInt(9) + 1;
+        return rowInt;
     }
 
     private boolean randVertical() {
