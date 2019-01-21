@@ -19,6 +19,16 @@ public class Board {
 	 */
 	public boolean placeShip(Ship ship, int x, char y, boolean isVertical) {
 		List<Square> occupiedSquares = new ArrayList<>();
+		// Check if there are fewer than 3 ships
+		if (placedShips.size() == 3){
+			return false;
+		}
+		// Check to insure you can only place 1 ship of each kind
+		for ( Ship currentShip : placedShips ) {
+			if (ship.getKind().equals(currentShip.getKind())) {
+				return false;
+			}
+		}
 		if (isVertical) {
 			if (x + ship.getLength() > 10 || x < 1) {
 				return false;
@@ -58,7 +68,6 @@ public class Board {
 	}
 
 	public List<Ship> getShips() {
-		//TODO implement
 		return placedShips;
 	}
 

@@ -75,7 +75,9 @@ function cellClick() {
                 registerCellListener((e) => {});
             }
         });
+        console.log("Placing ship: ", placedShips);
     } else {
+        console.log("In else statement...");
         sendXhr("POST", "/attack", {game: game, x: row, y: col}, function(data) {
             game = data;
             redrawGrid();
