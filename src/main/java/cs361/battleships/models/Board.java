@@ -20,14 +20,14 @@ public class Board {
 	public boolean placeShip(Ship ship, int x, char y, boolean isVertical) {
 		List<Square> occupiedSquares = new ArrayList<>();
 		if (isVertical) {
-			if (x + ship.getLength() > 10) {
+			if (x + ship.getLength() > 10 || x < 1) {
 				return false;
 			}
 			for (int i = 0; i < ship.getLength(); i++) {
 				occupiedSquares.add(new Square(x + i, y));
 			}
 		} else {
-			if (y + ship.getLength() - 'A' > 10) {
+			if (y + ship.getLength() - 'A' > 10 || y < 'A') {
 				return false;
 			}
 			for (int i = 0; i < ship.getLength(); i++) {
@@ -43,8 +43,9 @@ public class Board {
 				}
 			}
 		}
-		ship.setLocation(occupiedSquares);
-		placedShips.add(ship);
+		Ship newShip = new Ship(ship.getKind());
+		newShip.setLocation(occupiedSquares);
+		placedShips.add(newShip);
 		return true;
 	}
 
@@ -62,7 +63,7 @@ public class Board {
 	}
 
 	public void setShips(List<Ship> ships) {
-		//TODO implement
+		placedShips = ships;
 	}
 
 	public List<Result> getAttacks() {
