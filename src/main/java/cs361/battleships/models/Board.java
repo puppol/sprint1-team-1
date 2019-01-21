@@ -5,19 +5,48 @@ import java.util.List;
 
 public class Board {
 
+	private List<Ship> placedShips;
+
 	/*
 	DO NOT change the signature of this method. It is used by the grading scripts.
 	 */
 	public Board() {
-		// TODO Implement
+		placedShips = new ArrayList<>();
 	}
 
 	/*
 	DO NOT change the signature of this method. It is used by the grading scripts.
 	 */
 	public boolean placeShip(Ship ship, int x, char y, boolean isVertical) {
-		// TODO Implement
-		return false;
+		List<Square> occupiedSquares = new ArrayList<>();
+		if (isVertical) {
+			if (x + ship.getLength() > 10 || x < 1) {
+				return false;
+			}
+			for (int i = 0; i < ship.getLength(); i++) {
+				occupiedSquares.add(new Square(x + i, y));
+			}
+		} else {
+			if (y + ship.getLength() - 'A' > 10 || y < 'A') {
+				return false;
+			}
+			for (int i = 0; i < ship.getLength(); i++) {
+				occupiedSquares.add(new Square(x, (char)(y + i)));
+			}
+		}
+		for (Square square : occupiedSquares) {
+			for (Ship currentShip : placedShips) {
+				for (Square filledSquare : currentShip.getOccupiedSquares()) {
+					if (square.isEqual(filledSquare)) {
+						return false;
+					}
+				}
+			}
+		}
+		Ship newShip = new Ship(ship.getKind());
+		newShip.setLocation(occupiedSquares);
+		placedShips.add(newShip);
+		return true;
 	}
 
 	/*
@@ -30,11 +59,11 @@ public class Board {
 
 	public List<Ship> getShips() {
 		//TODO implement
-		return null;
+		return placedShips;
 	}
 
 	public void setShips(List<Ship> ships) {
-		//TODO implement
+		placedShips = ships;
 	}
 
 	public List<Result> getAttacks() {
