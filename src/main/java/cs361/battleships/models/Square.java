@@ -29,6 +29,4 @@ public class Square {
 	public void setRow(int row) {
 		this.row = row;
 	}
-
-	public boolean isEqual(Square otherSquare) { return this.row == otherSquare.row && this.column == otherSquare.column; }
 }
