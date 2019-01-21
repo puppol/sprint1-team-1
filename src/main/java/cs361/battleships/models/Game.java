@@ -52,8 +52,9 @@ public class Game {
     }
 
     private char randCol() {
-        // TODO implement
-        return 'X';
+        String alphabet = "ABCDEFGHIJ";
+        char col = alphabet.charAt(rand.nextInt(alphabet.length()));
+        return col;
     }
 
     private int randRow() {
