@@ -54,7 +54,6 @@ public class Board {
 		Ship newShip = new Ship(ship.getKind());
 		newShip.setLocation(occupiedSquares);
 		placedShips.add(newShip);
-		System.out.println("Good ship");
 		return true;
 	}
 

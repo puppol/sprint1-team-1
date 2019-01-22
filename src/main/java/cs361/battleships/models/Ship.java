@@ -7,23 +7,20 @@ import java.util.List;
 
 public class Ship {
 
-	@JsonProperty private List<Square> occupiedSquares;
-	private List<Square> healthSquares;
+	@JsonProperty private List<Square> occupiedSquares = new ArrayList<>();
+	@JsonProperty List<Square> healthSquares = new ArrayList<>();
 
-	private boolean isAlive;
+	private boolean alive;
 
 	private String kind;
 	private int length;
 
 	public Ship() {
-		occupiedSquares = new ArrayList<>();
-		healthSquares = occupiedSquares;
-		isAlive = true;
+		this.alive = true;
 	}
 	
 	public Ship(String kind) {
 		this.kind = kind;
-		occupiedSquares = new ArrayList<>();
 		if (kind.equals("MINESWEEPER")) {
 			length = 2;
 		} else if (kind.equals("DESTROYER")) {
@@ -31,6 +28,8 @@ public class Ship {
 		} else if (kind.equals("BATTLESHIP")) {
 			length = 4;
 		}
+
+		this.alive = true;
 	}
 
 	public List<Square> getOccupiedSquares() {
@@ -41,8 +40,9 @@ public class Ship {
 		if (! occupiedSquares.isEmpty()) {
 			occupiedSquares.clear();
 		}
-		for(int i = 0; i < newOccupiedSquares.size(); i++) {
-			occupiedSquares.add(newOccupiedSquares.get(i));
+		for(Square s : newOccupiedSquares) {
+			occupiedSquares.add(s);
+			healthSquares.add(s);
 		}
 	}
 
@@ -60,18 +60,18 @@ public class Ship {
 	}
 
 	public void removeHealthSquare(Square hit) {
-		if (healthSquares.size() == 0) {
-			this.isAlive = false;
-		}
-
 		for (Square s : healthSquares) {
 			if (s.isEqual(hit)) {
 				healthSquares.remove(s);
 			}
 		}
+
+		if (healthSquares.size() == 0) {
+			this.alive = false;
+		}
 	}
 
 	public boolean isAlive() {
-		return this.isAlive;
+		return this.alive;
 	}
 }
