@@ -24,8 +24,10 @@ public class ApplicationController {
         Ship ship = new Ship(g.getShipType());
         boolean result = game.placeShip(ship, g.getActionRow(), g.getActionColumn(), g.isVertical());
         if (result) {
+            System.out.println("Renders game");
             return Results.json().render(game);
         } else {
+            System.out.println("Bad Request");
             return Results.badRequest();
         }
     }

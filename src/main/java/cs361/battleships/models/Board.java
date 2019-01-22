@@ -61,6 +61,7 @@ public class Board {
 	DO NOT change the signature of this method. It is used by the grading scripts.
 	 */
 	public Result attack(int x, char y) {
+		System.out.println("In attack call...");
 		Result attackRes = new Result();
 		attackRes.setResult(AtackStatus.MISS);
 		attackRes.setLocation(new Square(x,y));
@@ -70,6 +71,7 @@ public class Board {
 			attackRes.setResult(AtackStatus.INVALID);
 			return attackRes;
 		}
+
 
 		// Check if hits enemy ship
 			//If so, does it hit an good part of ship
