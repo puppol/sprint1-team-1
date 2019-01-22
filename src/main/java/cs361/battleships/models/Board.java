@@ -22,11 +22,11 @@ public class Board {
 	public boolean placeShip(Ship ship, int x, char y, boolean isVertical) {
 		List<Square> occupiedSquares = new ArrayList<>();
 		// Check to insure you can only place 1 ship of each kind
-//		for ( Ship currentShip : placedShips ) {
-//			if (ship.getKind().equals(currentShip.getKind())) {
-//				return false;
-//			}
-//		}
+		for ( Ship currentShip : placedShips ) {
+			if (ship.getKind().equals(currentShip.getKind())) {
+				return false;
+			}
+		}
 		if (isVertical) {
 			if (x + ship.getLength() > 10 || x < 1) {
 				return false;
@@ -61,18 +61,19 @@ public class Board {
 	DO NOT change the signature of this method. It is used by the grading scripts.
 	 */
 	public Result attack(int x, char y) {
-		System.out.println("In attack call...");
+		System.out.println("In Board attack");
 		Result attackRes = new Result();
 		attackRes.setResult(AtackStatus.MISS);
 		attackRes.setLocation(new Square(x,y));
 
+		System.out.println("Bound checking...");
 		// Bounds Checking
 		if(x < 0 || x > 10 || y < 'A' || y > 'J'){
 			attackRes.setResult(AtackStatus.INVALID);
 			return attackRes;
 		}
 
-
+		System.out.println("Check hit box");
 		// Check if hits enemy ship
 			//If so, does it hit an good part of ship
 		for (Ship ship : placedShips) {
@@ -86,10 +87,13 @@ public class Board {
 			}
 		}
 
+		System.out.println("Check if surrender");
 		if ( !doesPlayerHaveShipsAlive() ){
 			attackRes.setResult(AtackStatus.SURRENDER);
 		}
-
+		System.out.println(attackRes.getLocation());
+		System.out.println(attackRes.getResult());
+		attacks.add(attackRes);
 		return attackRes;
 	}
 
