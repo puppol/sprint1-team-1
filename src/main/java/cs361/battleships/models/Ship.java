@@ -1,6 +1,7 @@
 package cs361.battleships.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ninja.validation.JSR303Validation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +9,16 @@ import java.util.List;
 public class Ship {
 
 	@JsonProperty private List<Square> occupiedSquares;
+	@JsonProperty private List<Square> healthSquares;
+
+	private boolean isAlive;
 	private String kind;
 	private int length;
 
 	public Ship() {
 		occupiedSquares = new ArrayList<>();
+		healthSquares = new ArrayList<>();
+
 	}
 	
 	public Ship(String kind) {
@@ -25,6 +31,7 @@ public class Ship {
 		} else if (kind.equals("BATTLESHIP")) {
 			length = 4;
 		}
+		healthSquares = new ArrayList<>();
 	}
 
 	public List<Square> getOccupiedSquares() {
@@ -37,6 +44,7 @@ public class Ship {
 		}
 		for(int i = 0; i < newOccupiedSquares.size(); i++) {
 			occupiedSquares.add(newOccupiedSquares.get(i));
+			healthSquares.add(newOccupiedSquares.get(i));
 		}
 	}
 

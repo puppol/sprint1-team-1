@@ -6,12 +6,14 @@ import java.util.List;
 public class Board {
 
 	private List<Ship> placedShips;
+	private List<Result> attacks;
 
 	/*
 	DO NOT change the signature of this method. It is used by the grading scripts.
 	 */
 	public Board() {
 		placedShips = new ArrayList<>();
+		attacks = new ArrayList<>();
 	}
 
 	/*
@@ -63,7 +65,6 @@ public class Board {
 	DO NOT change the signature of this method. It is used by the grading scripts.
 	 */
 	public Result attack(int x, char y) {
-		//TODO Implement
 		return null;
 	}
 
@@ -76,11 +77,10 @@ public class Board {
 	}
 
 	public List<Result> getAttacks() {
-		//TODO implement
-		return null;
+		return this.attacks;
 	}
 
 	public void setAttacks(List<Result> attacks) {
-		//TODO implement
+		this.attacks = attacks;
 	}
 }
