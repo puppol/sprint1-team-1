@@ -73,17 +73,21 @@ public class Board {
 			return attackRes;
 		}
 
+
 		System.out.println("Check hit box");
 		// Check if hits enemy ship
 			//If so, does it hit an good part of ship
-		for (Ship ship : placedShips) {
-			for (Square healthSquare : ship.getHealthSquares()) {
-				if (attackRes.getLocation().isEqual(healthSquare)){
-					ship.removeHealthSquare(attackRes.getLocation());
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < placedShips.get(i).getHealthSquares().size(); j++) {
+				if (attackRes.getLocation().isEqual(placedShips.get(i).getHealthSquares().get(j))) {
 					attackRes.setResult(AtackStatus.HIT);
-					if ( !ship.isAlive() )
-						attackRes.setResult(AtackStatus.SUNK);
+					placedShips.get(i).getHealthSquares().remove(j);
 				}
+				if ( placedShips.get(i).getHealthSquares().size() == 0 ) {
+					attackRes.setResult(AtackStatus.SUNK);
+					placedShips.get(i).sinkShip();
+				}
+
 			}
 		}
 
@@ -91,7 +95,7 @@ public class Board {
 		if ( !doesPlayerHaveShipsAlive() ){
 			attackRes.setResult(AtackStatus.SURRENDER);
 		}
-		System.out.println(attackRes.getLocation());
+
 		System.out.println(attackRes.getResult());
 		attacks.add(attackRes);
 		return attackRes;
@@ -100,10 +104,10 @@ public class Board {
 
 	public boolean doesPlayerHaveShipsAlive() {
 		for (Ship ship : placedShips) {
-			if (!ship.isAlive())
-				return false;
+			if (ship.isAlive())
+				return true;
 		}
-		return true;
+		return false;
 	}
 
 	public List<Ship> getShips() {

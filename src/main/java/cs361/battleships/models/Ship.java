@@ -8,7 +8,7 @@ import java.util.List;
 public class Ship {
 
 	@JsonProperty private List<Square> occupiedSquares = new ArrayList<>();
-	@JsonProperty List<Square> healthSquares = new ArrayList<>();
+	@JsonProperty private List<Square> healthSquares = new ArrayList<>();
 
 	private boolean alive;
 
@@ -59,19 +59,12 @@ public class Ship {
 		return healthSquares;
 	}
 
-	public void removeHealthSquare(Square hit) {
-		for (Square s : healthSquares) {
-			if (s.isEqual(hit)) {
-				healthSquares.remove(s);
-			}
-		}
-
-		if (healthSquares.size() == 0) {
-			this.alive = false;
-		}
-	}
 
 	public boolean isAlive() {
 		return this.alive;
+	}
+
+	public void sinkShip(){
+		this.alive = false;
 	}
 }
