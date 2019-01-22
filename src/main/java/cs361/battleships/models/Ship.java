@@ -7,17 +7,20 @@ import java.util.List;
 
 public class Ship {
 
-	@JsonProperty private List<Square> occupiedSquares;
+	@JsonProperty private List<Square> occupiedSquares = new ArrayList<>();
+	@JsonProperty private List<Square> healthSquares = new ArrayList<>();
+
+	private boolean alive;
+
 	private String kind;
 	private int length;
 
 	public Ship() {
-		occupiedSquares = new ArrayList<>();
+		this.alive = true;
 	}
 	
 	public Ship(String kind) {
 		this.kind = kind;
-		occupiedSquares = new ArrayList<>();
 		if (kind.equals("MINESWEEPER")) {
 			length = 2;
 		} else if (kind.equals("DESTROYER")) {
@@ -25,6 +28,8 @@ public class Ship {
 		} else if (kind.equals("BATTLESHIP")) {
 			length = 4;
 		}
+
+		this.alive = true;
 	}
 
 	public List<Square> getOccupiedSquares() {
@@ -35,8 +40,9 @@ public class Ship {
 		if (! occupiedSquares.isEmpty()) {
 			occupiedSquares.clear();
 		}
-		for(int i = 0; i < newOccupiedSquares.size(); i++) {
-			occupiedSquares.add(newOccupiedSquares.get(i));
+		for(Square s : newOccupiedSquares) {
+			occupiedSquares.add(s);
+			healthSquares.add(s);
 		}
 	}
 
@@ -46,5 +52,19 @@ public class Ship {
 
 	public String getKind() {
 		return kind;
+	}
+
+
+	public List<Square> getHealthSquares() {
+		return healthSquares;
+	}
+
+
+	public boolean isAlive() {
+		return this.alive;
+	}
+
+	public void sinkShip(){
+		this.alive = false;
 	}
 }

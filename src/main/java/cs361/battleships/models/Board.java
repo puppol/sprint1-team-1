@@ -6,12 +6,14 @@ import java.util.List;
 public class Board {
 
 	private List<Ship> placedShips;
+	private List<Result> attacks;
 
 	/*
 	DO NOT change the signature of this method. It is used by the grading scripts.
 	 */
 	public Board() {
-		placedShips = new ArrayList<>();
+		this.placedShips = new ArrayList<>();
+		this.attacks = new ArrayList<>();
 	}
 
 	/*
@@ -19,10 +21,6 @@ public class Board {
 	 */
 	public boolean placeShip(Ship ship, int x, char y, boolean isVertical) {
 		List<Square> occupiedSquares = new ArrayList<>();
-		// Check if there are fewer than 3 ships
-		if (placedShips.size() == 3){
-			return false;
-		}
 		// Check to insure you can only place 1 ship of each kind
 		for ( Ship currentShip : placedShips ) {
 			if (ship.getKind().equals(currentShip.getKind())) {
@@ -63,8 +61,61 @@ public class Board {
 	DO NOT change the signature of this method. It is used by the grading scripts.
 	 */
 	public Result attack(int x, char y) {
-		//TODO Implement
-		return null;
+		System.out.println("In Board attack");
+		Result attackRes = new Result();
+		attackRes.setResult(AtackStatus.MISS);
+		attackRes.setLocation(new Square(x,y));
+
+		System.out.println("Bound checking...");
+		// Bounds Checking
+		if(x < 0 || x > 10 || y < 'A' || y > 'J'){
+			attackRes.setResult(AtackStatus.INVALID);
+			return attackRes;
+		}
+
+
+		// Make sure you dont click the same twice
+		for (Result a : attacks) {
+			if (attackRes.getLocation().isEqual(a.getLocation())) {
+				attackRes.setResult(AtackStatus.INVALID);
+				return attackRes;
+			}
+		}
+
+		System.out.println("Check hit box");
+		// Check if hits enemy ship
+			//If so, does it hit an good part of ship
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < placedShips.get(i).getHealthSquares().size(); j++) {
+				if (attackRes.getLocation().isEqual(placedShips.get(i).getHealthSquares().get(j))) {
+					attackRes.setResult(AtackStatus.HIT);
+					placedShips.get(i).getHealthSquares().remove(j);
+				}
+				if ( placedShips.get(i).getHealthSquares().size() == 0 ) {
+					attackRes.setResult(AtackStatus.SUNK);
+					placedShips.get(i).sinkShip();
+				}
+
+			}
+		}
+
+		System.out.println("Check if surrender");
+		if ( !doesPlayerHaveShipsAlive() ){
+			attackRes.setResult(AtackStatus.SURRENDER);
+		}
+
+		System.out.println(attackRes.getResult());
+		attacks.add(attackRes);
+		return attackRes;
+	}
+
+
+	public boolean doesPlayerHaveShipsAlive() {
+		for (Ship ship : placedShips) {
+			if (ship.isAlive())
+				return true;
+		}
+		return false;
 	}
 
 	public List<Ship> getShips() {
@@ -76,11 +127,10 @@ public class Board {
 	}
 
 	public List<Result> getAttacks() {
-		//TODO implement
-		return null;
+		return this.attacks;
 	}
 
 	public void setAttacks(List<Result> attacks) {
-		//TODO implement
+		this.attacks = attacks;
 	}
 }
