@@ -43,12 +43,12 @@ public class Game {
             return false;
         }
 
-        Result opponentAttackResult = playersBoard.attack(randRow(), randCol());
-//        do {
-//            // AI does random attacks, so it might attack the same spot twice
-//            // let it try until it gets it right
-//            opponentAttackResult = playersBoard.attack(randRow(), randCol());
-//        } while(opponentAttackResult.getResult() != INVALID);
+        Result opponentAttackResult;
+        do {
+            // AI does random attacks, so it might attack the same spot twice
+            // let it try until it gets it right
+            opponentAttackResult = playersBoard.attack(randRow(), randCol());
+        } while(opponentAttackResult.getResult() == INVALID);
 
         return true;
     }
