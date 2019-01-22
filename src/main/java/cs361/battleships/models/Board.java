@@ -74,6 +74,14 @@ public class Board {
 		}
 
 
+		// Make sure you dont click the same twice
+		for (Result a : attacks) {
+			if (attackRes.getLocation().isEqual(a.getLocation())) {
+				attackRes.setResult(AtackStatus.INVALID);
+				return attackRes;
+			}
+		}
+
 		System.out.println("Check hit box");
 		// Check if hits enemy ship
 			//If so, does it hit an good part of ship
