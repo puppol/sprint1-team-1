@@ -8,7 +8,7 @@ import java.util.List;
 public class Ship {
 
 	@JsonProperty private List<Square> occupiedSquares;
-	private List<Square> healthSquares;
+	@JsonProperty private List<Square> healthSquares;
 
 	private boolean isAlive;
 
@@ -17,7 +17,10 @@ public class Ship {
 
 	public Ship() {
 		occupiedSquares = new ArrayList<>();
-		healthSquares = occupiedSquares;
+		healthSquares = new ArrayList<>();
+		for(Square s : occupiedSquares) {
+			healthSquares.add(s);
+		}
 		isAlive = true;
 	}
 	
@@ -31,6 +34,12 @@ public class Ship {
 		} else if (kind.equals("BATTLESHIP")) {
 			length = 4;
 		}
+		healthSquares = new ArrayList<>();
+		for(Square s : occupiedSquares) {
+			healthSquares.add(s);
+		}
+		isAlive = true;
+		System.out.println("Creating ship...");
 	}
 
 	public List<Square> getOccupiedSquares() {
@@ -41,8 +50,13 @@ public class Ship {
 		if (! occupiedSquares.isEmpty()) {
 			occupiedSquares.clear();
 		}
+		if (!healthSquares.isEmpty()) {
+			healthSquares.clear();
+		}
+
 		for(int i = 0; i < newOccupiedSquares.size(); i++) {
 			occupiedSquares.add(newOccupiedSquares.get(i));
+			healthSquares.add(newOccupiedSquares.get(i));
 		}
 	}
 

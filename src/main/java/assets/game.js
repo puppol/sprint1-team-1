@@ -19,16 +19,16 @@ function makeGrid(table, isPlayer) {
 function markHits(board, elementId, surrenderText) {
     board.attacks.forEach((attack) => {
         let className;
-        if (attack.result === "MISS")
-            className = "miss";
-        else if (attack.result === "HIT")
-            className = "hit";
-        else if (attack.result === "SUNK")
-            className = "hit"
-        else if (attack.result === "SURRENDER")
-            alert(surrenderText);
-        document.getElementById(elementId).rows[attack.location.row-1].cells[attack.location.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add(className);
-    });
+    if (attack.result === "MISS")
+        className = "miss";
+    else if (attack.result === "HIT")
+        className = "hit";
+    else if (attack.result === "SUNK")
+        className = "hit"
+    else if (attack.result === "SURRENDER")
+        alert(surrenderText);
+    document.getElementById(elementId).rows[attack.location.row-1].cells[attack.location.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add(className);
+});
 }
 
 function redrawGrid() {
@@ -42,7 +42,7 @@ function redrawGrid() {
 
     game.playersBoard.ships.forEach((ship) => ship.occupiedSquares.forEach((square) => {
         document.getElementById("player").rows[square.row-1].cells[square.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add("occupied");
-    }));
+}));
     markHits(game.opponentsBoard, "opponent", "You won the game");
     markHits(game.playersBoard, "player", "You lost the game");
 }
@@ -65,7 +65,9 @@ function registerCellListener(f) {
 function cellClick() {
     let row = this.parentNode.rowIndex + 1;
     let col = String.fromCharCode(this.cellIndex + 65);
+    console.log("In cellClick");
     if (isSetup) {
+        //console.log(game, shipType,row, col, vertical);
         sendXhr("POST", "/place", {game: game, shipType: shipType, x: row, y: col, isVertical: vertical}, function(data) {
             game = data;
             redrawGrid();
@@ -96,6 +98,7 @@ function sendXhr(method, url, data, handler) {
     });
     req.open(method, url);
     req.setRequestHeader("Content-Type", "application/json");
+    console.log(JSON.stringify(data));
     req.send(JSON.stringify(data));
 }
 
@@ -131,15 +134,15 @@ function initGame() {
     makeGrid(document.getElementById("player"), true);
     document.getElementById("place_minesweeper").addEventListener("click", function(e) {
         shipType = "MINESWEEPER";
-       registerCellListener(place(2));
+        registerCellListener(place(2));
     });
     document.getElementById("place_destroyer").addEventListener("click", function(e) {
         shipType = "DESTROYER";
-       registerCellListener(place(3));
+        registerCellListener(place(3));
     });
     document.getElementById("place_battleship").addEventListener("click", function(e) {
         shipType = "BATTLESHIP";
-       registerCellListener(place(4));
+        registerCellListener(place(4));
     });
     sendXhr("GET", "/game", {}, function(data) {
         game = data;
