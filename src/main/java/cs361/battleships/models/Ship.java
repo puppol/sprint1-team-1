@@ -8,11 +8,17 @@ import java.util.List;
 public class Ship {
 
 	@JsonProperty private List<Square> occupiedSquares;
+	private List<Square> healthSquares;
+
+	private boolean isAlive;
+
 	private String kind;
 	private int length;
 
 	public Ship() {
 		occupiedSquares = new ArrayList<>();
+		healthSquares = occupiedSquares;
+		isAlive = true;
 	}
 	
 	public Ship(String kind) {
@@ -46,5 +52,26 @@ public class Ship {
 
 	public String getKind() {
 		return kind;
+	}
+
+
+	public List<Square> getHealthSquares() {
+		return healthSquares;
+	}
+
+	public void removeHealthSquare(Square hit) {
+		if (healthSquares.size() == 0) {
+			this.isAlive = false;
+		}
+
+		for (Square s : healthSquares) {
+			if (s.isEqual(hit)) {
+				healthSquares.remove(s);
+			}
+		}
+	}
+
+	public boolean isAlive() {
+		return this.isAlive;
 	}
 }
