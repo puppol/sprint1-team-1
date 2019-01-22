@@ -85,7 +85,7 @@ public class Board {
 		System.out.println("Check hit box");
 		// Check if hits enemy ship
 			//If so, does it hit an good part of ship
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < placedShips.size(); i++) {
 			for (int j = 0; j < placedShips.get(i).getHealthSquares().size(); j++) {
 				if (attackRes.getLocation().isEqual(placedShips.get(i).getHealthSquares().get(j))) {
 					attackRes.setResult(AtackStatus.HIT);

@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import javax.validation.constraints.AssertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class BoardTest {
@@ -92,5 +95,15 @@ public class BoardTest {
         assertTrue(board.placeShip(minesweeper, 1, 'B', true));
         assertFalse(board.placeShip(destroyer, 1, 'B', false));
         assertFalse(board.placeShip(battleship, 1, 'A', false));
+    }
+
+    @Test
+    public void testHitShip() {
+        Board board = new Board();
+        Ship destroyer = new Ship("MINESWEEPER");
+        board.placeShip(destroyer, 1, 'B', false);
+
+        Result result = board.attack(1, 'B');
+        assertTrue(result.getResult() == AtackStatus.HIT);
     }
 }
