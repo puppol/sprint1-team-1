@@ -110,8 +110,8 @@ public class BoardTest {
     @Test
     public void testMissShip() {
         Board board = new Board();
-        Ship destroyer = new Ship("MINESWEEPER");
-        board.placeShip(destroyer, 1, 'B', false);
+        Ship minesweeper = new Ship("MINESWEEPER");
+        board.placeShip(minesweeper, 1, 'B', false);
 
         Result result1 = board.attack(1, 'A');
         Result result2 = board.attack(1, 'D');
