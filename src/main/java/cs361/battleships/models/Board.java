@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Board {
 
+
 	private List<Ship> placedShips;
 	private List<Result> attacks;
-
 	/*
 	DO NOT change the signature of this method. It is used by the grading scripts.
 	 */
@@ -123,7 +123,7 @@ public class Board {
 	}
 
 	public void setShips(List<Ship> ships) {
-		placedShips = ships;
+		//TODO implement
 	}
 
 	public List<Result> getAttacks() {
