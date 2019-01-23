@@ -61,12 +61,10 @@ public class Board {
 	DO NOT change the signature of this method. It is used by the grading scripts.
 	 */
 	public Result attack(int x, char y) {
-		System.out.println("In Board attack");
 		Result attackRes = new Result();
 		attackRes.setResult(AtackStatus.MISS);
 		attackRes.setLocation(new Square(x,y));
 
-		System.out.println("Bound checking...");
 		// Bounds Checking
 		if(x < 0 || x > 10 || y < 'A' || y > 'J'){
 			attackRes.setResult(AtackStatus.INVALID);
@@ -82,7 +80,6 @@ public class Board {
 			}
 		}
 
-		System.out.println("Check hit box");
 		// Check if hits enemy ship
 			//If so, does it hit an good part of ship
 		for (int i = 0; i < placedShips.size(); i++) {
@@ -99,15 +96,14 @@ public class Board {
 			}
 		}
 
-		System.out.println("Check if surrender");
 		if ( !doesPlayerHaveShipsAlive() ){
 			attackRes.setResult(AtackStatus.SURRENDER);
 		}
 
-		System.out.println(attackRes.getResult());
 		attacks.add(attackRes);
 		return attackRes;
 	}
+
 
 
 	public boolean doesPlayerHaveShipsAlive() {

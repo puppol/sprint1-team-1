@@ -17,8 +17,6 @@ function makeGrid(table, isPlayer) {
 }
 
 function markHits(board, elementId, surrenderText) {
-    console.log("Marking hits");
-    console.log(board.attacks);
     board.attacks.forEach((attack) => {
         let className;
     if (attack.result === "MISS")
@@ -68,9 +66,7 @@ function registerCellListener(f) {
 function cellClick() {
     let row = this.parentNode.rowIndex + 1;
     let col = String.fromCharCode(this.cellIndex + 65);
-    //console.log("In cellClick");
     if (isSetup) {
-        //console.log(game, shipType,row, col, vertical);
         sendXhr("POST", "/place", {game: game, shipType: shipType, x: row, y: col, isVertical: vertical}, function(data) {
             game = data;
             redrawGrid();
@@ -99,7 +95,6 @@ function sendXhr(method, url, data, handler) {
     });
     req.open(method, url);
     req.setRequestHeader("Content-Type", "application/json");
-    //console.log(JSON.stringify(data));
     req.send(JSON.stringify(data));
 }
 

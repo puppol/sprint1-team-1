@@ -27,7 +27,6 @@ public class Game {
             // AI places random ships, so it might try and place overlapping ships
             // let it try until it gets it right
             opponentPlacedSuccessfully = opponentsBoard.placeShip(ship, randRow(), randCol(), randVertical());
-            //System.out.println("Bad guy ship placed");
         } while (!opponentPlacedSuccessfully);
 
         return true;
@@ -37,7 +36,6 @@ public class Game {
 	DO NOT change the signature of this method. It is used by the grading scripts.
 	 */
     public boolean attack(int x, char  y) {
-        System.out.println("In Game Attack");
         Result playerAttack = opponentsBoard.attack(x, y);
         if (playerAttack.getResult() == INVALID) {
             return false;
